@@ -17,15 +17,18 @@ export default function SalesCard() {
   const [sales, setSales] = useState<Sale[]>([]);
 
   useEffect(() => {
+    const start = startDate.toISOString().slice(0, 10);
+    const end = endDate.toISOString().slice(0, 10);
+
     axios
-      .get(`${BASE_URL}/sales`)
+      .get(`${BASE_URL}/sales?startDate=${start}&endDate=${end}`)
       .then((response) => {
         setSales(response.data.content);
       })
       .catch((error) => {
         console.error("Erro na solicitação:", error);
       });
-  }, []);
+  }, [startDate, endDate]);
 
   return (
     <div className="dsmeta-card">
@@ -63,22 +66,24 @@ export default function SalesCard() {
           </thead>
           <tbody>
             {sales.map((sale) => {
-                return (
-                  <tr key={sale.id}>
-                    <td className="show992">{sale.id}</td>
-                    <td className="show576">{new Date(sale.date).toLocaleDateString()}</td>
-                    <td>{sale.sellerName}</td>
-                    <td className="show992">{sale.visited}</td>
-                    <td className="show992">{sale.deals}</td>
-                    <td>R$ {sale.amount.toFixed(2)}</td>
-                    <td>
-                      <div className="dsmeta-red-btn-container">
-                        <NotificationButton />
-                      </div>
-                    </td>
-                  </tr>
-                );
-              })}
+              return (
+                <tr key={sale.id}>
+                  <td className="show992">{sale.id}</td>
+                  <td className="show576">
+                    {new Date(sale.date).toLocaleDateString()}
+                  </td>
+                  <td>{sale.sellerName}</td>
+                  <td className="show992">{sale.visited}</td>
+                  <td className="show992">{sale.deals}</td>
+                  <td>R$ {sale.amount.toFixed(2)}</td>
+                  <td>
+                    <div className="dsmeta-red-btn-container">
+                      <NotificationButton />
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
