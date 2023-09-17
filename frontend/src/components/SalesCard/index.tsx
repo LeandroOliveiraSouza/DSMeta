@@ -2,7 +2,7 @@ import "./styles.css";
 import NotificationButton from "../NotificationButton";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function SalesCard() {
 
@@ -11,6 +11,10 @@ export default function SalesCard() {
 
   const [startDate, setStartDate] = useState(start);
   const [endDate, setEndDate] = useState(end);
+
+  useEffect(() => {
+    console.log("Teste");
+  }, []);
 
   return (
     <div className="dsmeta-card">
