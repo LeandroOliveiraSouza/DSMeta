@@ -1,7 +1,6 @@
 package com.devsuperior.dsmeta.entities;
 
-import jakarta.persistence.*;
-
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
